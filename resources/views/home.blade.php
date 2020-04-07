@@ -11,7 +11,7 @@
             
             <div class="col-8" style="height:100vh">
                 <p style="text-align:center; font-size:20px; font-weight:bold; line-height:0px">COVID-19 CORONAVIRUS PANDEMIC</p>
-                <p style="text-align:center; font-size: 10px; font-style:italic; color: rgba(255,255,255,0.5)">Last updated: </p>
+                <p style="text-align:center; font-size: 10px; font-style:italic; color: rgba(255,255,255,0.5)">Last updated: April 07, 2020, 19:15 GMT</p>
 
                 <p style="text-align:center; margin-top:30px">
                     <a href="#">Graphs</a>
