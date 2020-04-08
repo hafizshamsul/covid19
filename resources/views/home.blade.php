@@ -2,6 +2,8 @@
 <html lang="{{ app()->getLocale() }}">
     <head>
         <title>Hello World</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" href="{{ asset('css/odometer-theme-default.css') }}">
 
@@ -16,15 +18,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
     </head>
 
-    <body>
-        <div class="row">
-            <div class="col-2" style="height:100vh; background-color:rgb(0,0,0,0.2)"></div>
+    <body style="margin:0; height:100vh">
+        <div class="grid-container">
+            <div></div>
 
-            <div class="col-8" style="height:100vh">
-                
-
-                
-
+            <div>
                 <?php
                     $lastupdated = date("d-m-Y, h:i");
                 ?>
@@ -84,10 +82,8 @@
                     $pie_pending = round($pie_cases - $pie_recovered - $pie_deaths, 2);
                 ?>
 
-                
-
-                <div class="row">
-                    <div class="col-4">
+                <div>
+                    <div class="right3" style="height:350px">
                         <div style="text-align:center; margin-top:50px; color:rgba(255,255,255,0.85)">Total Cases:</div>
                         <div id="i" class="odometer" style="margin-top:2px"></div>
                         <script>
@@ -99,10 +95,6 @@
                             }, false);
                         </script>
                         <div style="text-align:center;  margin-top:2px; font-size:12px; font-weight:450; color: #64C2AF">Today: +{{ $world_todaycases }}</div>
-
-                        <!--
-                            <div style="text-align:center;  margin-top:2px; font-size:50px; font-weight:450">{{ $world_cases }}</div>
-                        -->
                         
                         <div style="text-align:center; margin-top:30px; color:rgba(255,255,255,0.85)">Total Deaths:</div>
                         <div id="j" class="odometer" style="margin-top:2px"></div>
@@ -115,11 +107,7 @@
                             }, false);
                         </script>
                         <div style="text-align:center;  margin-top:2px; font-size:12px; font-weight:450; color: #F78A8C">Today: +{{ $world_todaydeaths }}</div>
-
-                        <!--
-                            <div style="text-align:center; margin-top:2px; font-size:50px; font-weight:450">{{ $world_deaths }}</div>
-                        -->
-
+                    
                         <div style="text-align:center; margin-top:30px; color:rgba(255,255,255,0.85)">Total Recovered:</div>
                         <div id="k" class="odometer" style="margin-top:2px"></div>
                         <script>
@@ -130,45 +118,43 @@
                                 k.textContent = {{$raw_recovered}};
                             }, false);
                         </script>
-
-                        <!--
-                            <div style="text-align:center; margin-top:2px; font-size:50px; font-weight:450">{{ $world_recovered }}</div>
-                        -->
-    
                     </div>
+
                     
-                    <div class="col-4">
+                    <div class="right3" style="height:350px">
                         <div style="text-align:center; margin-top:50px; color:rgba(255,255,255,0.85)">Active Cases:</div>
                         <div style="text-align:center; margin-top:2px; font-size:30px; font-weight:450">{{ $world_active }}</div>
+                            <table style="margin:0 auto; margin-top:8px">
+                                <tr>
+                                    <td style="padding-right:6px; text-align:center; margin-top:2px; font-size:12px; font-weight:450">Mild:</td>
+                                    <td style="padding-left:6px; text-align:center; margin-top:2px; font-size:12px; font-weight:450">Critical:</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-right:6px; text-align:center; margin-top:2px; font-size:20px; font-weight:450">{{ $world_mild }}</td>    
+                                    <td style="padding-left:6px; text-align:center; margin-top:2px; font-size:20px; font-weight:450">{{ $world_critical }}</td>
+                                </tr>
+                            </table> 
 
-                            <div class="col-6">
-                                <div style="text-align:center; margin-top:2px; font-size:12px; font-weight:450">Mild:</div>
-                                <div style="text-align:center; margin-top:2px; font-size:20px; font-weight:450">{{ $world_mild }}</div>
-                            </div>
+                            <div style="text-align:center; margin-top:30px; color:rgba(255,255,255,0.85)">Closed Cases:</div>
+                            <div style="text-align:center; margin-top:2px; font-size:30px; font-weight:450">{{ $world_closed }}</div>
 
-                            <div class="col-6">
-                                <div style="text-align:center; margin-top:2px; font-size:12px; font-weight:450">Critical:</div>
-                                <div style="text-align:center; margin-top:2px; font-size:20px; font-weight:450">{{ $world_critical }}</div>
-                            </div>
-
-                        <div style="text-align:center; margin-top:120px; color:rgba(255,255,255,0.85)">Closed Cases:</div>
-                        <div style="text-align:center; margin-top:2px; font-size:30px; font-weight:450">{{ $world_closed }}</div>
-
-                            <div class="col-6">
-                                <div style="text-align:center; margin-top:2px; font-size:12px; font-weight:450">Recovered:</div>
-                                <div style="text-align:center; margin-top:2px; font-size:20px; font-weight:450">{{ $world_recovered }}</div>
-                            </div>
-
-                            <div class="col-6">
-                                <div style="text-align:center; margin-top:2px; font-size:12px; font-weight:450">Deaths:</div>
-                                <div style="text-align:center; margin-top:2px; font-size:20px; font-weight:450">{{ $world_deaths }}</div>
-                            </div>
+                            <table style="margin:0 auto; margin-top:8px">
+                                <tr>
+                                    <td style="padding-right:6px; text-align:center; margin-top:2px; font-size:12px; font-weight:450">Recovered:</td>
+                                    <td style="padding-left:6px; text-align:center; margin-top:2px; font-size:12px; font-weight:450">Deaths:</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-right:6px; text-align:center; margin-top:2px; font-size:20px; font-weight:450">{{ $world_recovered }}</td>
+                                    <td style="padding-left:6px; text-align:center; margin-top:2px; font-size:20px; font-weight:450">{{ $world_recovered }}</td>
+                                </tr>
+                            </table>       
+                        </div>
+                    <div class="right3" style="height:350px">
+                        <div style="text-align:center; margin-top:50px; color:rgba(255,255,255,0.8)">Breakdown of Cases:</div>
                         
-                    </div>
-
-                    <div class="col-4">
-                        <div style="text-align:center; margin-top:50px; color:rgba(255,255,255,0.8)">Breakdown of Cases:</div>    
-                        <canvas id="graph" height="230" width="260" style="margin-top:14px; padding: 28px 0 12px 0; background-color: rgba(0,0,0,0.12); border-radius:16px"></canvas>
+                        <div style="height:500px">
+                            <canvas id="graph" height="260" width="260" style="text-align:center; margin:8px auto 0 auto; padding: 28px 0 12px 0; background-color: rgba(0,0,0,0.12); border-radius:16px"></canvas>
+                        </div>
                         <script>
                             var ctx = document.getElementById('graph').getContext('2d');
                             var chart = new Chart(ctx, {
@@ -225,12 +211,49 @@
                     </div>
                 </div>
 
+                <div>
+                    <div class="right3">
+                        <!--
+                            <div style="text-align:center;  margin-top:2px; font-size:50px; font-weight:450">{{ $world_cases }}</div>
+                        -->
+                        
+                        
+
+                        <!--
+                            <div style="text-align:center; margin-top:2px; font-size:50px; font-weight:450">{{ $world_deaths }}</div>
+                        -->
+
+                        
+
+                        <!--
+                            <div style="text-align:center; margin-top:2px; font-size:50px; font-weight:450">{{ $world_recovered }}</div>
+                        -->
+    
+                    </div>
+                    
+                    <div class="right3">
+                        
+
+                            
+
+                        
+                            
+                    </div>
+
+                    <div class="right3">
+                        
+                        
+                    </div>
+
+                    
+                </div>
+
                 
             
                 
             </div>
 
-            <div class="col-2" style="height:100vh; background-color:rgb(0,0,0,0.2)"></div>
+            <div></div>
         </div>        
     </body>
 </html>

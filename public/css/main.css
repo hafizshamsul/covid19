@@ -15,6 +15,34 @@ body{
     font-family:'Inter';
 }
 
+.right2 {
+  float:left;
+  text-align:center;
+  width: 50%;
+}
+.right3 {
+  float:left;
+  text-align:center;
+  width: 33.33%;
+  height: 50px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto 70% auto;
+ height:100%;
+}
+
+@media (max-width:576px) {
+  .right2, .right3 {
+    width:100%;
+  }
+  .grid-container{
+  	display: grid;
+  	grid-template-columns: auto 100% auto;
+  }
+}
+
 .menu {
     width: 25%;
     float: left;
