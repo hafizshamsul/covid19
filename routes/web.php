@@ -36,7 +36,7 @@ Route::get('/', function () {
     $curl2 = curl_init();
 
     curl_setopt_array($curl2, array(
-    CURLOPT_URL => "https://corona.lmao.ninja/all",
+    CURLOPT_URL => "https://corona.lmao.ninja/v2/all",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
