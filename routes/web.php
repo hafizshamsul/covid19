@@ -50,5 +50,24 @@ Route::get('/', function () {
 
     curl_close($curl2);
 
-    return view('home', compact('response', 'response2'));
+    //
+    
+    $curl3 = curl_init();
+
+    curl_setopt_array($curl3, array(
+    CURLOPT_URL => "https://corona.lmao.ninja/v2/countries",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    ));
+
+    $response3 = curl_exec($curl3);
+
+    curl_close($curl3);
+
+    return view('home', compact('response', 'response2', 'response3'));
 });
