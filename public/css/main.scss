@@ -38,13 +38,42 @@ body{
  //height:100%;
 }
 
+.mainstats{
+  text-align:center;  margin-top:2px; font-size:30px; font-weight:800;
+}
+
+.labelstats{
+  
+}
+
 @media (max-width:576px) {
+  table{
+    width:100%;
+    font-size:10px;
+  }
+
+  .mainstats{
+    font-size:16px; font-weight:700;
+  }
+
+  .labelstats{
+    font-size:10px;
+  }
+  
   .right2, .right3 {
     width:100%;
   }
   .grid-container{
   	display: grid;
-  	grid-template-columns: auto 100% auto;
+  	grid-template-columns: 0 auto 0;
+  }
+
+  .tdcountry{
+    font-size: 10px;
+  }
+
+  .tdtitle{
+    font-size: 10px;
   }
 }
 
@@ -126,22 +155,34 @@ html {
   }
 
   table, tr, td{
-    border: 1px solid black;
+    border: 1px solid rgb(224,224,224);
     border-collapse: collapse;
     text-align: center;
   }
 
+  table{
+    border-radius: 40px;
+  }
+
+  tr:nth-child(even){
+    background: #f9fafb;
+  }
+
   td{
-    height:26px;
+    height:40px;
+    padding:4px;
+    border:none;
   }
 
   .tdcountry{
-    padding:4px;
     text-align: left;
   }
 
   .tdnum{
-    padding:4px;
+    text-align: right;
+  }
+
+  .tdtitle{
     text-align: right;
   }
 

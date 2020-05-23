@@ -71,3 +71,7 @@ Route::get('/', function () {
 
     return view('home', compact('response', 'response2', 'response3'));
 });
+
+Route::get('welcome', function () {
+    return view('welcome');
+});
