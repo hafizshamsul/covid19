@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
     <head>
-        <title>Coronavirus Index</title>
+        <title>Coronavirus Index | Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="{{ asset('css/main.scss') }}">
@@ -56,20 +56,12 @@
 
         //Countries
         $countries = json_decode($response3, true);
-
         $sizecountries = sizeof($countries);
-        
-        $sort = 'countrydesc';
 
-        if($sort == 'countrydesc'){
-            array_multisort(array_column($countries, "cases"), SORT_DESC, $countries);
-        }
-        else{
-            array_multisort(array_column($countries, "cases"), SORT_ASC, $countries);
-        }
-        
-        
+        array_multisort(array_column($countries, "cases"), SORT_DESC, $countries);
+       
         for($i=0; $i<$sizecountries; $i++){
+            $asc[$i]['rank'] = $i+1;
             $asc[$i]['country'] = $countries[$i]['country'];
             $asc[$i]['cases'] = $countries[$i]['cases'];
             $asc[$i]['todayCases'] = $countries[$i]['todayCases'];
@@ -83,8 +75,8 @@
 
     <body style="margin:0; height:100vh">
         <!--Header-->
-        <div style="display:grid; border-bottom: 1px solid rgb(200,200,200)">
-            <p style="text-align:center; font-size:20px; font-weight:bold; line-height:0px">COVID-19 CORONAVIRUS PANDEMIC</p>
+        <div style="display:grid; grid-template-columns:auto; border-bottom: 1px solid rgb(230,230,230)">
+            <div style="text-align:center; font-size:20px; font-weight:300; padding:10px 0">COVID-19 CORONAVIRUS INDEX</div>
         </div>
 
         <!--Navbar-->
@@ -103,76 +95,38 @@
         -->
         
         <!--Last updated-->
-        <div style="display:grid; margin: 20px 0 0 0 ">
-            <p style="text-align:center; font-size: 10px; font-style:italic;">Last updated: {{$lastupdated}} GMT</p>
+        <div style="display:grid; grid-template-columns: auto 70% auto; margin: 6px 0 0 0 ">
+            <!--
+                <p style="text-align:center; font-size: 10px; font-style:italic;">Last updated: {{$lastupdated}} GMT</p>
+            -->
+            <div></div>
+            <div>
+                <p style="text-align:center; font-size: 10px; font-style:italic; color:rgb(130,130,130)">Live data from Worldometer, John Hopkins University CSSE, New York Times, Apple and Govs</p>
+            </div>
+            <div></div>
         </div>
 
         <!--Main stats-->
-        <div style="display:grid; grid-template-columns: auto 50% auto; margin: 4px 0 22px 0">
+        <div class="grid-container" style="margin: 10px 0 22px 0">
             <div></div>
 
             <div>
                 <div>
-                    <!--
-                        <div>
-                        <div class="right2" style="border:1px solid black">
-                            <div>
-                                <div style="text-align:center;">Total Cases:</div>
-                                <div style="text-align:center;  margin-top:2px; font-size:50px; font-weight:800">{{ $world_cases }}</div>
-                            </div>
-                            
-                            <div style="text-align:center; margin-top:30px;">Total Deaths:</div>
-                            <div style="text-align:center; margin-top:2px; font-size:50px; font-weight:800">{{ $world_deaths }}</div>
-                        
-                            <div style="text-align:center; margin-top:30px;">Total Recovered:</div>
-                            <div style="text-align:center; margin-top:2px; font-size:50px; font-weight:800">{{ $world_recovered }}</div>
-                        </div>
-
-                        <div class="right2"  style="border:1px solid black">
-                            <div style="text-align:center;">Active Cases:</div>
-                            <div style="text-align:center; margin-top:2px; font-size:30px; font-weight:800">{{ $world_active }}</div>
-                                <table style="margin:0 auto; margin-top:8px">
-                                    <tr>
-                                        <td style="padding-right:6px; text-align:center; margin-top:2px; font-size:12px; font-weight:400">Mild:</td>
-                                        <td style="padding-left:6px; text-align:center; margin-top:2px; font-size:12px; font-weight:400">Critical:</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding-right:6px; text-align:center; margin-top:2px; font-size:20px; font-weight:800">{{ $world_mild }}</td>    
-                                        <td style="padding-left:6px; text-align:center; margin-top:2px; font-size:20px; font-weight:800">{{ $world_critical }}</td>
-                                    </tr>
-                                </table> 
-
-                            <div style="text-align:center; margin-top:30px;">Closed Cases:</div>
-                            <div style="text-align:center; margin-top:2px; font-size:30px; font-weight:800">{{ $world_closed }}</div>
-
-                            <table style="margin:0 auto; margin-top:8px">
-                                <tr>
-                                    <td style="padding-right:6px; text-align:center; margin-top:2px; font-size:12px; font-weight:400">Recovered:</td>
-                                    <td style="padding-left:6px; text-align:center; margin-top:2px; font-size:12px; font-weight:400">Deaths:</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-right:6px; text-align:center; margin-top:2px; font-size:20px; font-weight:800">{{ $world_recovered }}</td>
-                                    <td style="padding-left:6px; text-align:center; margin-top:2px; font-size:20px; font-weight:800">{{ $world_recovered }}</td>
-                                </tr>
-                            </table>       
-                        </div>
-                    </div>
-                    -->
                     
                     <div style="display:grid; grid-template-columns: auto auto auto">
                         <div>
-                            <div style="text-align:center;">Total Cases:</div>
-                            <div style="text-align:center;  margin-top:2px; font-size:30px; font-weight:800">{{ $world_cases }}</div>
+                            <div class="labelstats" style="text-align:center;">Total Cases:</div>
+                            <div class="mainstats">{{ $world_cases }}</div>
                         </div>
                         
                         <div>
-                            <div style="text-align:center;">Total Deaths:</div>
-                            <div style="text-align:center; margin-top:2px; font-size:30px; font-weight:800">{{ $world_deaths }}</div>
+                            <div class="labelstats" style="text-align:center;">Total Deaths:</div>
+                            <div class="mainstats">{{ $world_deaths }}</div>
                         </div>
                             
                         <div>
-                            <div style="text-align:center;">Total Recovered:</div>
-                            <div style="text-align:center; margin-top:2px; font-size:30px; font-weight:800">{{ $world_recovered }}</div>
+                            <div class="labelstats" style="text-align:center;">Total Recovered:</div>
+                            <div class="mainstats">{{ $world_recovered }}</div>
                         </div>  
                     </div>
 
@@ -185,13 +139,19 @@
         </div>
         
 
-        <div style="display:grid; grid-template-columns: auto 70% auto; margin: 0 0 20px 0">
+        <div class="grid-container" style="margin: 0 0 20px 0">
             <div></div>
 
             <div>
                 <table style="width:100%;">
-                    <tr style="font-size:14px; font-weight:700">
-                        <td>#</td><td style="max-width:170px">Country</td><td>Total Cases</td><td>New Cases</td><td>Total Deaths</td><td>New Deaths</td><td>Total Recovered</td><td>Active Cases</td>
+                    <tr style="font-weight:700; font-size:12px;width:100%">
+                        <td style="width:6%">#</td>
+                        <td class="tdcountry" style="width:14%;">Country</td>
+                        <td class="tdtitle" style="width:10%">Total Cases</td>
+                        <td class="tdtitle" style="width:10%">New Cases</td>
+                        <td class="tdtitle" style="width:10%">Total Deaths</td>
+                        <td class="tdtitle" style="width:10%">New Deaths</td>
+                        <td class="tdtitle" style="width:10%; padding-right:14px">Total Recovered</td>
                     </tr>
 
                     <?php
@@ -205,16 +165,28 @@
                             $todayDeaths = number_format($asc[$i]['todayDeaths'], 0,'.',','); ;
                             $recovered = number_format($asc[$i]['recovered'], 0,'.',','); ;
                             $active = number_format($asc[$i]['active'], 0,'.',','); ;
+
+                            if($asc[$i]['country']=='UK' || $asc[$i]['country']=='Netherlands'){
+                                if($asc[$i]['recovered']==0){
+                                    $recovered = 'N/A';
+                                }
+                            }
+                            if($asc[$i]['todayCases'] == 0){
+                                $todayCases = '';
+                            }
+                            if($asc[$i]['todayDeaths'] == 0){
+                                $todayDeaths = '';
+                            }
+
                             echo "
                                 <tr>
                                     <td>$index</td>
-                                    <td class='tdcountry' style='max-width:170px'>$country</td>
+                                    <td class='tdcountry' style='max-width:40px'>$country</td>
                                     <td class='tdnum'>$cases</td>
-                                    <td class='tdnum'>$todayCases</td>
+                                    <td class='tdnum'>+$todayCases</td>
                                     <td class='tdnum'>$deaths</td>
-                                    <td class='tdnum'>$todayDeaths</td>
-                                    <td class='tdnum'>$recovered</td>
-                                    <td class='tdnum'>$active</td>
+                                    <td class='tdnum'>+$todayDeaths</td>
+                                    <td class='tdnum' style=' padding-right:14px'>$recovered</td>
                                 </tr>
                             ";
                         }
