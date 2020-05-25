@@ -34,7 +34,7 @@ body{
 
 .grid-container {
   display: grid;
-  grid-template-columns: auto 70% auto;
+  grid-template-columns: 1fr 70% 1fr;
  //height:100%;
 }
 
@@ -139,12 +139,12 @@ html {
     background-color: #0099cc;
   }
 
-  a{
+  /*a{
     text-decoration:none;
     //color:rgba(255,255,255,1);
     font-size: 13px;
     margin:0 30px;
-  }
+  }*/
   
   #i, #j, #k {
     font-size: 40px;
@@ -184,6 +184,10 @@ html {
 
   .tdtitle{
     text-align: right;
+  }
+
+  .colshadow{
+    border-radius:6px;border:1px solid rgb(230,230,230); padding:10px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   .odometer.odometer-auto-theme, .odometer.odometer-theme-default {
