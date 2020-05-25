@@ -69,6 +69,7 @@
             $asc[$i]['todayDeaths'] = $countries[$i]['todayDeaths'];
             $asc[$i]['recovered'] = $countries[$i]['recovered'];
             $asc[$i]['active'] = $countries[$i]['active'];
+            $asc[$i]['countryiso3'] = $countries[$i]['countryInfo']['iso3'];
         }
         
     ?>
@@ -178,10 +179,12 @@
                                 $todayDeaths = '';
                             }
 
+                            $countryiso3 = $asc[$i]['countryiso3'];
+
                             echo "
                                 <tr>
                                     <td>$index</td>
-                                    <td class='tdcountry' style='max-width:40px'>$country</td>
+                                    <td class='tdcountry' style='max-width:40px'><a href='country/$countryiso3'>$country</a></td>
                                     <td class='tdnum'>$cases</td>
                                     <td class='tdnum'>+$todayCases</td>
                                     <td class='tdnum'>$deaths</td>
