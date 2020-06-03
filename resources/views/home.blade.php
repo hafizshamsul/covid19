@@ -18,8 +18,45 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
         <script data-ad-client="ca-pub-5183629226749487" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.21/js/dataTables.semanticui.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+
+        <!--
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.semanticui.min.css">
+        -->
+
+        <script>
+            $(document).ready( function () {
+                var t = $('#myTable').DataTable({
+                    "columnDefs": [ {
+                        "searchable": true,
+                        "orderable": false,
+                        "targets": 0,
+                    } ],
+                    "order": [[ 0, 'asc' ]],
+                    "paging": false,
+                    "searching": true,
+                    
+                    "initComplete": function(){
+                        $("#myTable_filter").detach().appendTo('#new-search-area');
+                        $("#myTable_filter input").attr("placeholder", "Search country..");
+                    },
+                    "language": { "search": "" }
+                });
+
+                t.on( 'order.dt', function () {
+                    t.column(0, {order:'applied'}).nodes().each( function (cell, i) {
+                        cell.innerHTML = i+1;
+                    } );
+                } ).draw();
+            } );
+        </script>
     </head>
+
+   
 
     <?php
         $lastupdated = date("d-m-Y, h:i");
@@ -70,9 +107,12 @@
             $asc[$i]['recovered'] = $countries[$i]['recovered'];
             $asc[$i]['active'] = $countries[$i]['active'];
             $asc[$i]['countryiso3'] = $countries[$i]['countryInfo']['iso3'];
+            $asc[$i]['countryflag'] = $countries[$i]['countryInfo']['flag'];
         }
         
     ?>
+
+
 
     <body style="margin:0; height:100vh">
         <!--Header-->
@@ -130,33 +170,32 @@
                             <div class="mainstats">{{ $world_recovered }}</div>
                         </div>  
                     </div>
-
-
                 </div>
-
             </div>
 
             <div></div>
         </div>
-        
 
         <div class="grid-container" style="margin: 0 0 20px 0">
             <div></div>
 
             <div>
-                <table style="width:100%;">
-                    <tr style="font-weight:700; font-size:12px;width:100%">
-                        <td style="width:6%">#</td>
-                        <td class="tdcountry" style="width:14%;">Country</td>
-                        <td class="tdtitle" style="width:10%">Total Cases</td>
-                        <td class="tdtitle" style="width:10%">New Cases</td>
-                        <td class="tdtitle" style="width:10%">Total Deaths</td>
-                        <td class="tdtitle" style="width:10%">New Deaths</td>
-                        <td class="tdtitle" style="width:10%; padding-right:14px">Total Recovered</td>
-                    </tr>
-
-                    <?php
-                        
+                <div id="new-search-area">
+                </div>
+                <table id="myTable" style="width:100%;">
+                    <thead>
+                        <tr style="font-weight:700; font-size:12px;width:100%">
+                            <th style="width:6%">#</th>
+                            <th class="tdcountry" style="width:14%;">Country</th>
+                            <th class="tdtitle" style="width:10%">Total Cases</th>
+                            <th class="tdtitle" style="width:10%">New Cases</th>
+                            <th class="tdtitle" style="width:10%">Total Deaths</th>
+                            <th class="tdtitle" style="width:10%">New Deaths</th>
+                            <th class="tdtitle" style="width:10%; padding-right:14px">Total Recovered</th>
+                        </tr>
+                    </thead>
+                    
+                    <?php 
                         for($i=0; $i<$sizecountries; $i++){
                             $index = $i+1;
                             $country = $asc[$i]['country'];
@@ -169,26 +208,30 @@
 
                             if($asc[$i]['country']=='UK' || $asc[$i]['country']=='Netherlands'){
                                 if($asc[$i]['recovered']==0){
-                                    $recovered = 'N/A';
+                                    //$recovered = 'N/A';
                                 }
                             }
                             if($asc[$i]['todayCases'] == 0){
-                                $todayCases = '';
+                                //$todayCases = '';
                             }
                             if($asc[$i]['todayDeaths'] == 0){
-                                $todayDeaths = '';
+                                //$todayDeaths = '';
                             }
 
                             $countryiso3 = $asc[$i]['countryiso3'];
+                            $countryflag = $asc[$i]['countryflag'];
 
                             echo "
                                 <tr>
                                     <td>$index</td>
-                                    <td class='tdcountry' style='max-width:40px'><a href='country/$countryiso3'>$country</a></td>
+                                    <td class='tdcountry' style='max-width:40px;'>
+                                        <img src='{$countryflag}' style='width:15px; margin: 0 4px 0 0; vertical-align:middle'/>
+                                        <a href='country/$countryiso3'>$country</a>
+                                    </td>
                                     <td class='tdnum'>$cases</td>
-                                    <td class='tdnum'>+$todayCases</td>
+                                    <td class='tdnum'>$todayCases</td>
                                     <td class='tdnum'>$deaths</td>
-                                    <td class='tdnum'>+$todayDeaths</td>
+                                    <td class='tdnum'>$todayDeaths</td>
                                     <td class='tdnum' style=' padding-right:14px'>$recovered</td>
                                 </tr>
                             ";
@@ -199,5 +242,8 @@
 
             <div></div>
         </div>
+        
     </body>
 </html>
+
+

@@ -139,12 +139,16 @@ html {
     background-color: #0099cc;
   }
 
-  /*a{
+  a{
     text-decoration:none;
-    //color:rgba(255,255,255,1);
-    font-size: 13px;
-    margin:0 30px;
-  }*/
+    color:#0694a2;
+    font-weight: 500;
+    //font-size: 13px;
+    //margin:0 30px;
+  }
+  a:hover{
+    text-decoration: underline;
+  }
   
   #i, #j, #k {
     font-size: 40px;
@@ -164,11 +168,15 @@ html {
     border-radius: 40px;
   }
 
-  tr:nth-child(even){
+  thead > tr{
+    background: white;
+  }
+
+  tbody > tr:nth-child(odd){
     background: #f9fafb;
   }
 
-  td{
+  th, td{
     height:40px;
     padding:4px;
     border:none;
@@ -188,6 +196,21 @@ html {
 
   .colshadow{
     border-radius:6px;border:1px solid rgb(230,230,230); padding:10px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  #new-search-area{
+    width: 100%;
+    clear: both;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  #new-search-area input{
+      width: 100%;
+      font-size: 15px;
+      padding: 14px;
+      text-transform: capitalize;
+      border: 1px solid rgb(230,230,230);
+      border-radius: 2px;
   }
 
   .odometer.odometer-auto-theme, .odometer.odometer-theme-default {
