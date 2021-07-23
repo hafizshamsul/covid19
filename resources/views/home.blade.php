@@ -2,9 +2,9 @@
 <html lang="{{ app()->getLocale() }}">
     <head>
         <title>Coronavirus Index | Home</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-        <link rel="stylesheet" href="{{ asset('css/main.scss') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" href="{{ asset('css/odometer-theme-default.css') }}">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css">
@@ -18,11 +18,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
         <script data-ad-client="ca-pub-5183629226749487" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
+        <script src="../htdocs/covid19/resources/views/map.js" type="text/javascript"></script>
+
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.21/js/dataTables.semanticui.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
 
+        <script src="https://d3js.org/d3.v5.min.js"></script>
         <!--
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
             <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.semanticui.min.css">
@@ -30,29 +33,33 @@
 
         <script>
             $(document).ready( function () {
-                var t = $('#myTable').DataTable({
-                    "columnDefs": [ {
-                        "searchable": true,
-                        "orderable": false,
-                        "targets": 0,
-                    } ],
-                    "order": [[ 0, 'asc' ]],
-                    "paging": false,
-                    "searching": true,
-                    
-                    "initComplete": function(){
-                        $("#myTable_filter").detach().appendTo('#new-search-area');
-                        $("#myTable_filter input").attr("placeholder", "Search country..");
-                    },
-                    "language": { "search": "" }
-                });
+    var t = $('#myTable').DataTable({
+        "columnDefs": [ {
+            "searchable": true,
+            "orderable": false,
+            "targets": 0,
+        } ],
+        "order": [[ 0, 'asc' ]],
+        "paging": false,
+        "searching": true,
+        
+        "initComplete": function(){
+            $("#myTable_filter").detach().appendTo('#new-search-area');
+            $("#myTable_filter input").attr("placeholder", "Search country..");
+        },
+        "language": { "search": "" }
+    });
 
-                t.on( 'order.dt', function () {
-                    t.column(0, {order:'applied'}).nodes().each( function (cell, i) {
-                        cell.innerHTML = i+1;
-                    } );
-                } ).draw();
-            } );
+    t.on( 'order.dt', function () {
+        t.column(0, {order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+} );
+
+
+            
+           
         </script>
     </head>
 

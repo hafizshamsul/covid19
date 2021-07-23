@@ -201,8 +201,8 @@ html {
   #new-search-area{
     width: 100%;
     clear: both;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 0px;
+    padding-bottom: 16px;
   }
   #new-search-area input{
       width: 100%;
@@ -211,6 +211,7 @@ html {
       text-transform: capitalize;
       border: 1px solid rgb(230,230,230);
       border-radius: 2px;
+      -webkit-appearance: none;
   }
 
   .odometer.odometer-auto-theme, .odometer.odometer-theme-default {
