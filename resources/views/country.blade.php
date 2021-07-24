@@ -5,7 +5,7 @@
         $lastupdated = date("d-m-Y, h:i");
     
         //Historical
-        $historical = json_decode($response4, true);
+        /*$historical = json_decode($response4, true);
         $sizehistorical = sizeof($historical['timeline']['cases']);
 
         $arrayx;
@@ -14,7 +14,7 @@
             //$arrayx[$x] = $his
             $x++;
             $leh = $his;
-        }
+        }*/
 
         //Country
         $count = json_decode($response5, true);
