@@ -14,14 +14,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $response2 = getApi2();
-    $response3 = getApi3();
+    //$response2 = getApi2();
+    //$response3 = getApi3();
+
+    $response2 = Cache::remember('api_2', 10, function () {
+        return getApi2();
+    });
+
+    $response3 = Cache::remember('api_3', 10, function () {
+        return getApi3();
+    });
     
     return view('home', compact('response2', 'response3'));
 });
 
 Route::get('country/{countryurl}', function ($countryurl) {
-    $response5 = getApi5($countryurl);
+    //$response5 = getApi5($countryurl);
+
+    $response5 = Cache::remember('api_5', 10, function () {
+        return getApi5();
+    });
     
     return view('country', compact('response5', 'countryurl'));
 });
