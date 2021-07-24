@@ -4,7 +4,10 @@
         <title>Coronavirus Index | Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="{{ asset('css/main.scss') }}">
         <link rel="stylesheet" href="{{ asset('css/odometer-theme-default.css') }}">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css">
@@ -45,7 +48,9 @@
         
         "initComplete": function(){
             $("#myTable_filter").detach().appendTo('#new-search-area');
+            $("#myTable_filter label").attr("style", "width: 100%");
             $("#myTable_filter input").attr("placeholder", "Search country..");
+
         },
         "language": { "search": "" }
     });
@@ -119,43 +124,25 @@
         
     ?>
 
-
-
     <body style="margin:0; height:100vh">
         <!--Header-->
-        <div style="display:grid; grid-template-columns:auto; border-bottom: 1px solid rgb(230,230,230)">
-            <div style="text-align:center; font-size:20px; font-weight:300; padding:10px 0">COVID-19 CORONAVIRUS INDEX</div>
-        </div>
-
-        <!--Navbar-->
-        <!--
-            <div style="display:grid;">
-                <p style="text-align:center; margin-top:40px">
-                    <a href="#">Graphs</a>
-                    <a href="#">Countries</a>
-                    <a href="#">Death Rate</a>
-                    <a href="#">Incubation</a>
-                    <a href="#">Age</a>
-                    <a href="#">Symptoms</a>
-                    <a href="#">News</a>
-                </p>
+        <nav class="navbar navbar-expand-lg navbar-light" style="padding: 14px 26px; box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/" style="font-size: 18px; text-decoration: none">COVID-19 INDEX</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="#">Overview</a>
+                    <a class="nav-link" href="#">Malaysia</a>
+                </div>
+                </div>
             </div>
-        -->
-        
-        <!--Last updated-->
-        <div style="display:grid; grid-template-columns: auto 70% auto; margin: 6px 0 0 0 ">
-            <!--
-                <p style="text-align:center; font-size: 10px; font-style:italic;">Last updated: {{$lastupdated}} GMT</p>
-            -->
-            <div></div>
-            <div>
-                <p style="text-align:center; font-size: 10px; font-style:italic; color:rgb(130,130,130)">Live data from Worldometer, John Hopkins University CSSE, New York Times, Apple and Govs</p>
-            </div>
-            <div></div>
-        </div>
+        </nav>
 
         <!--Main stats-->
-        <div class="grid-container" style="margin: 10px 0 22px 0">
+        <div class="grid-container" style="margin: 22px 0">
             <div></div>
 
             <div>
