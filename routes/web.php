@@ -14,6 +14,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $response2 = getApi2();
+    $response3 = getApi3();
+    
+    return view('home', compact('response2', 'response3'));
+});
+
+Route::get('country/{countryurl}', function ($countryurl) {
+    $response5 = getApi5($countryurl);
+    
+    return view('country', compact('response5', 'countryurl'));
+});
+
+Route::get('welcome', function () {
+    return view('welcome');
+});
+
+function getApi2(){
     $curl2 = curl_init();
 
     curl_setopt_array($curl2, array(
@@ -30,6 +47,10 @@ Route::get('/', function () {
     $response2 = curl_exec($curl2);
     curl_close($curl2);
 
+    return $response2;
+}
+
+function getApi3(){
     $curl3 = curl_init();
 
     curl_setopt_array($curl3, array(
@@ -44,29 +65,12 @@ Route::get('/', function () {
     ));
 
     $response3 = curl_exec($curl3);
-
     curl_close($curl3);
 
-    return view('home', compact('response2', 'response3'));
-});
+    return $response3;
+}
 
-Route::get('country/{countryurl}', function ($countryurl) {
-    $curl4 = curl_init();
-
-    curl_setopt_array($curl4, array(
-        CURLOPT_URL => "https://disease.sh/v2/historical/usa?lastdays=all",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-    ));
-    
-    $response4 = curl_exec($curl4);
-    curl_close($curl4);
-
+function getApi5($countryurl){
     $curl5 = curl_init();
 
     curl_setopt_array($curl5, array(
@@ -83,9 +87,5 @@ Route::get('country/{countryurl}', function ($countryurl) {
     $response5 = curl_exec($curl5);
     curl_close($curl5);
 
-    return view('country', compact('response4', 'response5', 'countryurl'));
-});
-
-Route::get('welcome', function () {
-    return view('welcome');
-});
+    return $response5;
+}
