@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    //$response2 = getApi2();
-    //$response3 = getApi3();
-
     $response2 = Cache::remember('api_2', 10, function () {
         return getApi2();
     });
@@ -24,13 +22,15 @@ Route::get('/', function () {
     $response3 = Cache::remember('api_3', 10, function () {
         return getApi3();
     });
+
+    $csvToJson = Cache::remember('csvToJson', Carbon::now()->endOfDay(), function () {
+        return csvToJson();
+    });
     
-    return view('home', compact('response2', 'response3'));
+    return view('home', compact('response2', 'response3', 'csvToJson'));
 });
 
 Route::get('country/{countryurl}', function ($countryurl) {
-    //$response5 = getApi5($countryurl);
-
     $response5 = Cache::remember('api_5', 10, function () {
         return getApi5();
     });
@@ -101,3 +101,55 @@ function getApi5($countryurl){
 
     return $response5;
 }
+
+function csvToJson(){
+    // Set your CSV feed
+    $feed = 'https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/cases_malaysia.csv';
+
+    // Arrays we'll use later
+    $keys = array();
+    $newArray = array();
+    // Do it
+    $data = csvToArray($feed, ',');
+
+    // Set number of elements (minus 1 because we shift off the first row)
+    $count = count($data) - 1;
+    
+    //Use first row for names  
+    $labels = array_shift($data);  
+
+    foreach ($labels as $label) {
+        $keys[] = $label;
+    }
+
+    // Add Ids, just in case we want them later
+    $keys[] = 'id';
+
+    for ($i = 0; $i < $count; $i++) {
+        $data[$i][] = $i;
+    }
+    
+    // Bring it all together
+    for ($j = 0; $j < $count; $j++) {
+        $d = array_combine($keys, $data[$j]);
+        $newArray[$j] = $d;
+    }
+
+    // Print it out as JSON
+    return json_encode($newArray);
+}
+
+// Function to convert CSV into associative array
+function csvToArray($file, $delimiter) { 
+    if (($handle = fopen($file, 'r')) !== FALSE) { 
+      $i = 0; 
+      while (($lineArray = fgetcsv($handle, 4000, $delimiter, '"')) !== FALSE) { 
+        for ($j = 0; $j < count($lineArray); $j++) { 
+          $arr[$i][$j] = $lineArray[$j]; 
+        } 
+        $i++; 
+      } 
+      fclose($handle); 
+    } 
+    return $arr; 
+} 
