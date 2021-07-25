@@ -5,7 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
-use App\Console\Commands\IncrementNum;
+use App\Console\Commands\CovidCron;
 
 
 class Kernel extends ConsoleKernel
@@ -28,8 +28,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('covid:cron')->everyMinute();
-        //$schedule->command('foo1')->timezone('Asia/Kuala_Lumpur')->dailyAt('13:00');
+        $schedule->command('covid:cron')->timezone('Asia/Kuala_Lumpur')->dailyAt('00:00');
         //$schedule->command('foo2')->timezone('Asia/Kuala_Lumpur')->dailyAt('1:00');
     }
 
@@ -45,3 +44,4 @@ class Kernel extends ConsoleKernel
         require base_path('routes/console.php');
     }
 }
+?>
