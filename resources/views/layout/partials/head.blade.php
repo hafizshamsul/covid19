@@ -10,6 +10,14 @@
     <!-- jQuery/DataTables -->
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
+<!--Dygraph-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.css" />
+
+<!--loader.js-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
 <!-- Custom css -->
 <link rel="stylesheet" href="{{ asset('css/main.scss') }}">
 

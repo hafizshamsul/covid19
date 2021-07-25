@@ -4,8 +4,6 @@
     <?php
         $lastupdated = date("d-m-Y, h:i");
 
-        echo csvToJson();
-
         //All
         $world = json_decode($response2, true);
         
