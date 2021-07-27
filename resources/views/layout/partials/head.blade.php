@@ -17,9 +17,13 @@
 <!--loader.js-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/mapdata/countries/my/my-all.js"></script>
 
 <!-- Custom css -->
 <link rel="stylesheet" href="{{ asset('css/main.scss') }}">
 
 <!-- Custom js -->
 <script src="{{ asset('js/searchTable.js') }}"></script>
+

@@ -50,16 +50,36 @@ Route::get('country/{countryurl}', function ($countryurl) {
 });
 
 Route::get('malaysia', function () {
-    if (Cache::has('csvToJson')){
-        $csvToJson = Cache::remember('csvToJson', Carbon::now()->endOfDay(), function () {
-            return csvToJson();
+    //cases_malaysia
+    if (Cache::has('csvToJson_cases_malaysia')){
+        $csvToJson_cases_malaysia = Cache::remember('csvToJson_cases_malaysia', Carbon::now()->endOfDay(), function () {
+            return csvToJson(1, 'epidemic/cases_malaysia');
         });
     }
     else{
-        $csvToJson = csvToJson();
+        $csvToJson_cases_malaysia = csvToJson(1, 'epidemic/cases_malaysia');
+    }
+
+    //deaths_malaysia
+    if (Cache::has('csvToJson_deaths_malaysia')){
+        $csvToJson_cases_malaysia = Cache::remember('csvToJson_deaths_malaysia', Carbon::now()->endOfDay(), function () {
+            return csvToJson(1, 'epidemic/deaths_malaysia');
+        });
+    }
+    else{
+        $csvToJson_deaths_malaysia = csvToJson(1, 'epidemic/deaths_malaysia');
+    }
+
+    if (Cache::has('csvToJson_vax_malaysia')){
+        $csvToJson_cases_malaysia = Cache::remember('csvToJson_vax_malaysia', Carbon::now()->endOfDay(), function () {
+            return csvToJson(2, 'vaccination/vax_malaysia');
+        });
+    }
+    else{
+        $csvToJson_vax_malaysia = csvToJson(2, 'vaccination/vax_malaysia');
     }
     
-    return view('malaysia', compact('csvToJson'));
+    return view('malaysia', compact('csvToJson_cases_malaysia', 'csvToJson_deaths_malaysia', 'csvToJson_vax_malaysia'));
 });
 
 Route::get('welcome', function () {
@@ -126,9 +146,15 @@ function getApi5($countryurl){
     return $response5;
 }
 
-function csvToJson(){
+function csvToJson($repo, $giturl){
     // Set your CSV feed
-    $feed = 'https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/cases_malaysia.csv';
+    if($repo == 1){
+        $feed = "https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/$giturl.csv";
+    }
+    else if($repo == 2){
+        $feed = "https://raw.githubusercontent.com/CITF-Malaysia/citf-public/main/$giturl.csv";
+    }
+    
 
     // Arrays we'll use later
     $keys = array();
