@@ -213,35 +213,61 @@
             });
         </script>
 
+        <script>
+            
+
+        </script>
+
     <body>
         <div style="margin: 0 12px">
-            <div id="container" style="margin: 20px 0"></div>
             <!--
+                <div id="container" style="margin: 20px 0"></div>
+            
                 <input id="slider" type="range" min="2021" max="2021" step="1" value="2021"> 
                 <p id="year">2021</p>
             -->
             
-            <h4 style="margin: 15px 0">Statistics</h4>
+            <h5 style="margin: 15px 0">Statistics</h5>
 
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">New cases</a>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">New cases</button>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Deaths</a>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Deaths</button>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Vaccinations</a>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Vaccinations</button>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Tests</a>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Tests</button>
                 </li>
             </ul>
-            <div id="chart_div_cases_malaysia" style="height: 150px; margin: 30px 0"></div>
-            <div id="chart_div_deaths_malaysia" style="height: 150px; margin: 30px 0"></div>
-            <div id="chart_div_vax_malaysia" style="height: 150px; margin: 30px 0"></div>
 
-            <hr>
+            <div style="display: grid; font-size: 12px; margin: 12px 0 36px 0; color: #3c4043">
+            From Wikipedia and others - Last updated: 4 hours ago
+            </div>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div id="chart_div_cases_malaysia" style="height: 170px; margin: -1px 0"></div>
+                </div>
+
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div id="chart_div_deaths_malaysia" style="height: 170px; margin: -1px 0"></div>
+                
+                </div>
+
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div id="chart_div_vax_malaysia" style="height: 170px; margin: -1px 0"></div>
+                </div>
+
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                
+                </div>
+            </div>
+
+            <div style="display: grid; margin: 20px 0; border-top: 1px solid #ebebeb"></div>
             <div style="display: grid; color: rgb(150,150,150); font-size: 12px">
             Each day shows new cases reported since the previous day
             </div>
@@ -250,15 +276,13 @@
             <u>About this data</u>
             </div>
 
-            <h4 style="margin: 15px 0">Cases overview</h4>
+            <h5 style="margin: 15px 0">Cases overview</h5>
             <div style="display: grid; font-size: 12px">
             From Wikipedia and others - Last updated: 4 hours ago
             </div>
 
-            <hr>
+            <div style="display: grid; margin: 20px 0; border-top: 1px solid #ebebeb"></div>
         </div>
-    
-    
 
     <!--cases_malaysia-->
     <div style="display: grid">

@@ -21,6 +21,8 @@
 <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/mapdata/countries/my/my-all.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+
 <!-- Custom css -->
 <link rel="stylesheet" href="{{ asset('css/main.scss') }}">
 
