@@ -87,8 +87,17 @@ Route::get('malaysia', function () {
     else{
         $csvToJson_population = csvToJson(2, 'static/population');
     }
+
+    if (Cache::has('csvToJson_tests_malaysia')){
+        $csvToJson_tests_malaysia = Cache::remember('csvToJson_tests_malaysia', Carbon::now()->endOfDay(), function () {
+            return csvToJson(1, 'epidemic/tests_malaysia');
+        });
+    }
+    else{
+        $csvToJson_tests_malaysia = csvToJson(1, 'epidemic/tests_malaysia');
+    }
     
-    return view('malaysia', compact('csvToJson_cases_malaysia', 'csvToJson_deaths_malaysia', 'csvToJson_vax_malaysia', 'csvToJson_population'));
+    return view('malaysia', compact('csvToJson_cases_malaysia', 'csvToJson_deaths_malaysia', 'csvToJson_vax_malaysia', 'csvToJson_population', 'csvToJson_tests_malaysia'));
 });
 
 Route::get('welcome', function () {

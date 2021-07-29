@@ -253,7 +253,7 @@ h5{
 
 #layout{
   display: grid;
-  grid-template-columns: auto 600px auto;
+  grid-template-columns: 200px 600px auto;
 }
 
 @media (max-width: 768px) {

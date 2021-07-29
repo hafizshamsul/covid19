@@ -6,7 +6,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-link" href="/">Overview</a>
+            <a class="nav-link" href="/">Worldwide</a>
             <a class="nav-link" href="malaysia">Malaysia</a>
         </div>
         </div>
