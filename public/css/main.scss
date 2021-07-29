@@ -237,3 +237,27 @@ h5{
   color: #202124;
   letter-spacing: 0.25;
 }
+
+#hi-progress{
+  display: grid;
+  width: 100%;
+  height: 5px;
+  margin: 10px 0 6px 0;
+}
+
+#targetimmuinty-label{
+  display: grid;
+  width: 100%;
+  height: 5px;
+}
+
+#layout{
+  display: grid;
+  grid-template-columns: auto 600px auto;
+}
+
+@media (max-width: 768px) {
+  #layout{
+    grid-template-columns: 0 100% 0;
+  }
+}
