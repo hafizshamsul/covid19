@@ -11,6 +11,30 @@
         $jsonFix_vax_malaysia = urldecode($csvToJson_vax_malaysia);
         $vax_malaysia = json_decode($jsonFix_vax_malaysia, true);
 
+        $jsonFix_population = urldecode($csvToJson_population);
+        $population = json_decode($jsonFix_population, true);
+
+        $malaysiapopulation = $population[0]['pop'];
+        $malaysiavaccinated = (int)$vax_malaysia[sizeof($vax_malaysia)-1]['dose2_cumul'];
+        $vaccinatedpercentage = (double)$malaysiavaccinated / (double)$malaysiapopulation * 100;
+
+        $malaysiavaccinated2_lastweek = 0;
+        for($i=(sizeof($vax_malaysia)-7); $i<(sizeof($vax_malaysia)); $i++){
+            $malaysiavaccinated2_lastweek += (int)$vax_malaysia[$i]['dose2_daily'];
+        }
+        $vaccinationrate2_lastweek = (double)$malaysiavaccinated2_lastweek / 7;
+
+        $hi = $malaysiapopulation * 0.8;
+        $daystohi = ($hi - $malaysiavaccinated) / $vaccinationrate2_lastweek;
+        $daystohi_int = (int)$daystohi;
+
+        $datetoday = date('Y-m-d');
+        $datetohi = date('Y-m-d', strtotime($datetoday. " + $daystohi_int days"));
+
+        $vaccinatedratio = (double)$vax_malaysia[sizeof($vax_malaysia)-1]['dose2_cumul'] / $malaysiapopulation * 100;
+        $nonvaccinatedratio = 100 - $vaccinatedratio;
+        $targetimmunity = 80;
+
         $lol = array(
             array("Date", "Cases")
         );
@@ -34,7 +58,6 @@
         for($i=0; $i<(sizeof($vax_malaysia)); $i++){
             array_push($lal, array($vax_malaysia[$i]['date'], (int)$vax_malaysia[$i]['dose1_cumul'], (int)$vax_malaysia[$i]['dose2_cumul']));
         }
-
     ?>
 
     <script type="text/javascript">
@@ -219,124 +242,99 @@
         </script>
 
     <body>
-        <div style="margin: 0 12px">
+        <div id="layout" style="margin: 14px 12px">
             <!--
                 <div id="container" style="margin: 20px 0"></div>
             
                 <input id="slider" type="range" min="2021" max="2021" step="1" value="2021"> 
                 <p id="year">2021</p>
             -->
+            <div></div>
+
+            <div>
+                <h5 style="margin: 15px 0">Vaccinations</h5>
+
+                <div id="hi-progress" style="grid-template-columns: <?php echo $vaccinatedratio;?>% auto">
+                    <div style="height: 100%; width: 100%; background: #58af61"></div>
+                    <div style="height: 100%; width: 100%; background: rgb(240,240,240)"></div>
+                </div>
+
+                <div style="display: grid; font-size: 12px; margin: 12px 0 36px 0; color: #3c4043">
+                    {{number_format($vaccinatedpercentage, 1)}}% of Malaysians have fully vaccinated ({{number_format($malaysiavaccinated)}} out of {{number_format($malaysiapopulation)}}) since 25 February 2021.
+                    If it continues with the average 2-dose vaccination rate for the past 7 days ({{number_format($vaccinationrate2_lastweek, 0)}} per day), we are expected to reach 80% vaccination rate (possible herd immunity)
+                    in {{$daystohi_int}} days, which is by {{$datetohi}}.
+                </div>
+
+                <!--
+                <div id="hi-progress" style="grid-template-columns: 77% 6% 17%">
+                    <div style="height: 100%; width: 100%;"></div>
+                    <div style="height: 100%; width: 100%; text-align: center">80%</div>
+                    <div style="height: 100%; width: 100%; "></div>
+                </div>
+                -->
+                
+                <h5 style="margin: 15px 0">Statistics</h5>
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">New cases</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Deaths</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Vaccinations</button>
+                    </li>
+                    <li class="nav-iem" role="presentation">
+                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Tests</button>
+                    </li>
+                </ul>
+
+                <div style="display: grid; font-size: 12px; margin: 12px 0 36px 0; color: #3c4043">
+                From Wikipedia and others - Last updated: 4 hours ago
+                </div>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div id="chart_div_cases_malaysia" style="height: 170px; margin: -1px 0"></div>
+                    </div>
+
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div id="chart_div_deaths_malaysia" style="height: 170px; margin: -1px 0"></div>
+                    
+                    </div>
+
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div id="chart_div_vax_malaysia" style="height: 170px; margin: -1px 0"></div>
+                    </div>
+
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    
+                    </div>
+                </div>
+
+                <div style="display: grid; margin: 20px 0; border-top: 1px solid #ebebeb"></div>
+                <div style="display: grid; color: rgb(150,150,150); font-size: 12px">
+                Each day shows new cases reported since the previous day
+                </div>
+
+                <div style="display: grid; color: rgb(150,150,150); font-size: 12px">
+                <u>About this data</u>
+                </div>
+
+                <h5 style="margin: 15px 0">Cases overview</h5>
+                <div style="display: grid; font-size: 12px">
+                From Wikipedia and others - Last updated: 4 hours ago
+                </div>
+
+                <div style="display: grid; margin: 20px 0; border-top: 1px solid #ebebeb"></div>
+            </div>
+
+            <div></div>
+
+
             
-            <h5 style="margin: 15px 0">Statistics</h5>
-
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">New cases</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Deaths</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Vaccinations</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Tests</button>
-                </li>
-            </ul>
-
-            <div style="display: grid; font-size: 12px; margin: 12px 0 36px 0; color: #3c4043">
-            From Wikipedia and others - Last updated: 4 hours ago
-            </div>
-
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div id="chart_div_cases_malaysia" style="height: 170px; margin: -1px 0"></div>
-                </div>
-
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <div id="chart_div_deaths_malaysia" style="height: 170px; margin: -1px 0"></div>
-                
-                </div>
-
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <div id="chart_div_vax_malaysia" style="height: 170px; margin: -1px 0"></div>
-                </div>
-
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                
-                </div>
-            </div>
-
-            <div style="display: grid; margin: 20px 0; border-top: 1px solid #ebebeb"></div>
-            <div style="display: grid; color: rgb(150,150,150); font-size: 12px">
-            Each day shows new cases reported since the previous day
-            </div>
-
-            <div style="display: grid; color: rgb(150,150,150); font-size: 12px">
-            <u>About this data</u>
-            </div>
-
-            <h5 style="margin: 15px 0">Cases overview</h5>
-            <div style="display: grid; font-size: 12px">
-            From Wikipedia and others - Last updated: 4 hours ago
-            </div>
-
-            <div style="display: grid; margin: 20px 0; border-top: 1px solid #ebebeb"></div>
         </div>
-
-    <!--cases_malaysia-->
-    <div style="display: grid">
-        <div>Total<div>
-        <div>Today<div>
-    <div>
-
-    <!--cases_state-->
-    <div style="display: grid">
-        <div>Total<div>
-        <div>Today<div>
-    <div>
-
-    <!--tests_malaysia-->
-    <div style="display: grid">
-        <div>Total<div>
-        <div>Today<div>
-    <div>
-
-    <!--clusters-->
-    <div style="display: grid">
-        <div>Total<div>
-        <div>Today<div>
-    <div>
-
-    <!--deaths_malaysia-->
-    <div style="display: grid">
-        <div>Total<div>
-        <div>Today<div>
-    <div>
-
-    <!--deaths_state-->
-    <div style="display: grid">
-        <div>Total<div>
-        <div>Today<div>
-    <div>
-
-    <!--pkrc-->
-    <div style="display: grid">
-        <div>Total<div>
-        <div>Today<div>
-    <div>
-
-    <!--hospital-->
-    <div style="display: grid">
-        <div>Total<div>
-        <div>Today<div>
-    <div>
-
-    <!--icu-->
-    <div style="display: grid">
-        <div>Total<div>
-        <div>Today<div>
-    <div>
 
 @endsection
 
