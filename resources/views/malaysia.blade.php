@@ -386,10 +386,62 @@
                 
             </div>
 
-            <div></div>
+            <div style="padding: 20px 110px 20px 40px">
+                <div style="height: fit; width: 100%; border: 1px solid #dfe1e5; border-radius: 8px; margin: 20px">
+                    <h5 style="margin: 15px 14px">Cases overview</h5>
+                    <div style="display: grid; margin: 0 14px; font-size: 12px; color: #3c4043">
+                        From MoH-Malaysia and CITF-Malaysia - Last updated: 4 hours ago
+                    </div>
+                    <div style="display: grid; margin: 10px 0; border-top: 1px solid #ebebeb"></div>
+                    <div style="padding: 0 14px">
+                        <div style="display: grid; font-size: 14px; color: #202124">
+                            Malaysia
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr">
+                            <div style="display: grid; grid-template-columns: auto; font-size: 12px; margin: 12px 0; color: #3c4043">
+                                <div style="display: grid; color: #3c4043">
+                                    Total cases
+                                </div>
+                                <div style="display: grid; font-size: 18px; color: #202124">
+                                    1.06M
+                                </div>
+                                <div style="display: grid; color: #70757a">
+                                    +17,000
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: auto; font-size: 12px; margin: 12px 0; color: #3c4043">
+                                <div style="display: grid; color: #3c4043">
+                                    Recovered
+                                </div>
+                                <div style="display: grid; font-size: 18px; color: #202124">
+                                    878K
+                                </div>
+                                <div style="display: grid; color: #70757a">
+                                    +12,000
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: auto; font-size: 12px; margin: 12px 0; color: #3c4043">
+                                <div style="display: grid; color: #3c4043">
+                                    Deaths
+                                </div>
+                                <div style="display: grid; font-size: 18px; color: #202124">
+                                    8,551
+                                </div>
+                                <div style="display: grid; color: #70757a">
+                                    +143
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                </div>
 
-
-            
+                <!--
+                    <div style="height: 150px; width: 100%; border: 1px solid #dfe1e5; border-radius: 8px; margin: 20px"></div>
+                    <div style="height: 150px; width: 100%; border: 1px solid #dfe1e5; border-radius: 8px; margin: 20px"></div>
+                -->
+            </div>
         </div>
 
 @endsection
